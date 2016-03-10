@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+# Usage:
+# ruby wercker-bundle-update-pr username (optional) email (optional) branches (optional)
+# Example:
+# ruby wercker-bundle-update-pr alice alice@example.com develop
+
+require 'wercker_bundle_update_pr'
+
+WerckerBundleUpdatePr.run(username: ARGV.shift,
+                          email: ARGV.shift,
+                          branches: ARGV.empty? ? ['master'] : ARGV)
