@@ -40,10 +40,10 @@ Add the following 2 steps under `steps` to access GitHub via SSH (Set GitHub's S
 ```yaml
     - add-ssh-key:
         keyname: WERCKER_GITHUB_CI_KEY
-        fingerprint: <fingerprint>
 
     - add-to-known_hosts:
         hostname: github.com
+        fingerprint: <fingerprint>
 ```
 
 then add this step as well (replace `<username>` and `<email>` with yours).
