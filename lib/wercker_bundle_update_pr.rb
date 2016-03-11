@@ -12,12 +12,16 @@ module WerckerBundleUpdatePr
     raise '$WERCKER_GIT_OWNER not set' unless ENV['WERCKER_GIT_OWNER']
     raise '$WERCKER_GIT_REPOSITORY not set' unless ENV['WERCKER_GIT_REPOSITORY']
     raise '$GITHUB_ACCESS_TOKEN not set' unless ENV['GITHUB_ACCESS_TOKEN']
+
     username ||= client.user.login
     email ||= "#{username}@users.noreply.github.com"
+
     return unless bundle_update?(branches)
+
     repository = "#{ENV['WERCKER_GIT_OWNER']}/#{ENV['WERCKER_GIT_REPOSITORY']}"
     now = Time.now
     branch = "bundle-update-#{now.strftime('%Y%m%d%H%M%S')}"
+
     create_branch(username, email, branch)
     pull_request = create_pull_request(repository, branch, now)
     add_compare_linker_comment(repository, pull_request[:number])
@@ -25,6 +29,7 @@ module WerckerBundleUpdatePr
 
   def self.bundle_update?(branches)
     return false unless branches.include?(ENV['WERCKER_GIT_BRANCH'])
+
     raise "Failed to run `bundle update`" unless system("bundle update")
     `git status -sb 2> /dev/null`.include?("Gemfile.lock")
   end
