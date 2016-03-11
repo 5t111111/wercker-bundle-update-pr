@@ -2,7 +2,7 @@
 
 This is an automation script to bundle update and send pull request via Wercker's Trigger Build API. By requesting trigger build to Wercker with an environment variable which instruct wercker.yml to execute this script, bundle update is invoked, then commit changes and send pull request to GitHub repository if there some changes exist.
 
-(Both concept and implementaion are strongly based on [circleci-bundle-update-pr](https://github.com/masutaka/circleci-bundle-update-pr). Thnaks to [masutaka](https://github.com/masutaka))
+(Both concept and implementaion are strongly based on [circleci-bundle-update-pr](https://github.com/masutaka/circleci-bundle-update-pr).
 
 ## Installation
 
@@ -29,34 +29,32 @@ A Wercker personal token is required for invoking Trigger Build API. Go to your 
 In the application's setting page:
 
 1. Generate SSH key named "wercker_github_ci_key" in "SSH Keys" for pushing changes to GitHub
-1. Register the above generated key to GitHub SSH keys in Personal settings (note a fingerprint shown along with a key like `41:98:4b:7f:ae:...`)
+1. Register the above generated key to GitHub SSH keys in Personal settings
 1. In "Environment variables", add `GITHUB_ACCESS_TOKEN` with a GitHub personal access token (**Make sure you mark it "protected" otherwise it will be shown in logs**)
 1. In "Environment variables", add `WERCKER_GITHUB_CI_KEY` as SSH key pair and select "wercker_github_ci_key"
 
 ### Configure wercker.yml
 
-Add the following 2 steps under `steps` to access GitHub via SSH:
+Add the following 2 steps under `steps` to access GitHub via SSH (Set GitHub's SSH key RSA fingerprint to `<fingerprint>`. See [What are GitHub's SSH key fingerprints?](What are GitHub's SSH key fingerprints?)):
 
 ```yaml
     - add-ssh-key:
         keyname: WERCKER_GITHUB_CI_KEY
-        fingerprint: 15:59:4b:7c:59:d6:a1:00:0e:91:5a:0d:71:73:d8:7d
+        fingerprint: <fingerprint>
 
     - add-to-known_hosts:
         hostname: github.com
 ```
 
-then add this step as well.
+then add this step as well (replace `<username>` and `<email>` with yours).
 
 ``` yaml
     - script:
         code: |
-          if [ -z "${BUNDLE_UPDATE}" ] ; then
-            ls >/dev/null 2>&1
-          else
+          if [ "${BUNDLE_UPDATE}" ] ; then
             gem update bundler --no-document
             gem install wercker-bundle-update-pr
-            wercker-bundle-update-pr 5t111111 baenej@gmail.com
+            wercker-bundle-update-pr <username> <email>
           fi
 ```
 
