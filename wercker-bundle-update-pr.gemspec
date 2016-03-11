@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["baenej@gmail.com"]
 
   spec.summary       = %q{An automation script to bundle update and send pull request via Wercker's Trigger Build API}
-  spec.description   = %q{Request trigger build to Wercker with an environment variable which instruct wercker.yml to execute this script, then it invoke bundle update, then commit changes and send pull request to GitHub repository.}
+  spec.description   = %q{By requesting trigger build to Wercker with an environment variable which instruct wercker.yml to execute this script, bundle update is invoked, then commit changes and send pull request to GitHub repository if there some changes exist.}
   spec.homepage      = "https://github.com/5t111111/wercker-bundle-update-pr"
   spec.license       = "MIT"
 
