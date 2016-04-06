@@ -35,7 +35,7 @@ In the application's setting page:
 
 ### Configure wercker.yml
 
-Add the following 2 steps under `steps` to access GitHub via SSH (Set GitHub's SSH key RSA fingerprint to `<fingerprint>`. See [What are GitHub's SSH key fingerprints?](What are GitHub's SSH key fingerprints?)):
+Add the following 2 steps under `steps` to access GitHub via SSH (Set GitHub's SSH key RSA fingerprint to `<fingerprint>`. See [What are GitHub's SSH key fingerprints?](https://help.github.com/articles/what-are-github-s-ssh-key-fingerprints)):
 
 ```yaml
     - add-ssh-key:
