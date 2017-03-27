@@ -39,7 +39,7 @@ Add the following 2 steps under `steps` to access GitHub via SSH (Set GitHub's S
 
 ```yaml
     - add-ssh-key:
-        keyname: WERCKER_GITHUB_CI_KEY
+        keyname: $WERCKER_GITHUB_CI_KEY
 
     - add-to-known_hosts:
         hostname: github.com
