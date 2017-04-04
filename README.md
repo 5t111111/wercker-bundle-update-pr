@@ -52,8 +52,8 @@ then add this step as well (replace `<username>` and `<email>` with yours).
     - script:
         code: |
           if [ "${BUNDLE_UPDATE}" ] ; then
-            gem update bundler --no-document
-            gem install wercker-bundle-update-pr
+            gem update bundler -N
+            gem install wercker-bundle-update-pr -N
             wercker-bundle-update-pr <username> <email>
           fi
 ```
